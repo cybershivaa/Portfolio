@@ -1,0 +1,142 @@
+.contact-section {
+  margin: auto;
+  padding-bottom: 100px;
+  margin-top: 100px;
+  position: relative;
+  z-index: 2;
+  background-color: var(--backgroundColor);
+}
+
+.contact-section h3 {
+  font-size: 60px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 0;
+  background: var(--accentGradientText);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.contact-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact-flex h4 {
+  font-weight: 500;
+  margin: 0;
+  opacity: 0.5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.contact-box {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--surfaceColor);
+  border: 1px solid var(--surfaceBorder);
+  transition: all 0.4s ease;
+}
+
+.contact-box:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(94, 234, 212, 0.15);
+  box-shadow: 0 4px 30px rgba(94, 234, 212, 0.05);
+}
+
+.contact-flex p {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+a.contact-social {
+  font-size: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+a.contact-social:hover {
+  border-bottom-color: var(--accentColor);
+  color: var(--accentColor);
+  padding-left: 5px;
+}
+
+.contact-box h2 {
+  font-weight: 400;
+  font-size: 23px;
+  margin: 0;
+}
+
+.contact-box h2>span {
+  background: var(--accentGradientText);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 600;
+}
+
+.contact-box h5 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 20px;
+  display: flex;
+  gap: 10px;
+  opacity: 0.4;
+}
+
+@media only screen and (max-width: 1600px) {
+  .contact-section h3 {
+    font-size: 50px;
+  }
+  .contact-box h2 {
+    font-size: 20px;
+  }
+  a.contact-social {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .contact-section h3 {
+    font-size: 40px;
+  }
+  .contact-box h2 {
+    font-size: 18px;
+  }
+  a.contact-social {
+    font-size: 20px;
+  }
+  .contact-flex p {
+    margin-top: 0px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .contact-flex {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .contact-flex p {
+    margin-bottom: 0px;
+  }
+  .contact-flex h4 {
+    margin-top: 20px;
+  }
+  .contact-section {
+    margin-top: 50px;
+    padding-bottom: 50px;
+  }
+  .contact-container {
+    width: calc(100% - 25px);
+  }
+}
