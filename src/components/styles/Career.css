@@ -8,7 +8,7 @@
   opacity: 1;
   height: auto;
   margin: auto;
-  margin-bottom: 250px;
+  margin-bottom: 80px;
   padding: 120px 0px;
 }
 
@@ -55,7 +55,7 @@
   display: flex;
   width: 40%;
   justify-content: space-between;
-  gap: 50px;
+  gap: 40px;
 }
 
 .career-info h3 {
@@ -87,13 +87,15 @@
   top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  width: 3px;
-  height: 100%;
-  background-image: linear-gradient(to top,
-      #14b8a6 20%,
-      var(--accentColor) 50%,
-      transparent 95%);
-  max-height: 0%;
+  width: 2px;
+  height: calc(100% + 100px);
+  background: linear-gradient(to bottom,
+      rgba(20, 184, 166, 0) 0%,
+      rgba(20, 184, 166, 0.3) 10%,
+      rgba(103, 232, 249, 0.5) 50%,
+      rgba(20, 184, 166, 0.3) 90%,
+      rgba(20, 184, 166, 0) 100%);
+  box-shadow: 0 0 30px rgba(103, 232, 249, 0.6), 0 0 60px rgba(20, 184, 166, 0.5), 0 0 90px rgba(103, 232, 249, 0.4);
 }
 
 .career-dot {
@@ -168,7 +170,7 @@
 
   .career-info-in {
     width: 45%;
-    gap: 20px;
+    gap: 15px;
   }
 
   .career-info-box p {
@@ -221,7 +223,7 @@
   }
 
   .career-info-in {
-    gap: 0px;
+    gap: 15px;
   }
 
   .career-info h3 {

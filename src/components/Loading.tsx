@@ -5,33 +5,84 @@ import { useLoading } from "../context/LoadingProvider";
 import Marquee from "react-fast-marquee";
 
 const Loading = ({ percent }: { percent: number }) => {
-  const { setIsLoading } = useLoading();
+  const { setIsLoading, setLoading } = useLoading();
   const [loaded, setLoaded] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  if (percent >= 100) {
-    setTimeout(() => {
-      setLoaded(true);
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 1000);
-    }, 600);
-  }
+  useEffect(() => {
+    let isActive = true;
+    let currentPercent = 0;
+    let loadTimer: ReturnType<typeof setTimeout> | undefined;
+    let completeTimer: ReturnType<typeof setTimeout> | undefined;
+    let finishTimer: ReturnType<typeof setTimeout> | undefined;
+
+    setLoading(0);
+
+    const interval = setInterval(() => {
+      if (!isActive) {
+        return;
+      }
+
+      currentPercent = Math.min(
+        100,
+        currentPercent + Math.max(2, Math.round(Math.random() * 8))
+      );
+      setLoading(currentPercent);
+
+      if (currentPercent >= 100) {
+        clearInterval(interval);
+        loadTimer = setTimeout(() => {
+          if (!isActive) {
+            return;
+          }
+
+          setLoaded(true);
+          completeTimer = setTimeout(() => {
+            if (isActive) {
+              setIsLoaded(true);
+            }
+          }, 1000);
+        }, 500);
+      }
+    }, 80);
+
+    return () => {
+      isActive = false;
+      clearInterval(interval);
+      if (loadTimer) clearTimeout(loadTimer);
+      if (completeTimer) clearTimeout(completeTimer);
+      if (finishTimer) clearTimeout(finishTimer);
+    };
+  }, [setLoading]);
 
   useEffect(() => {
+    if (!isLoaded) {
+      return;
+    }
+
+    let isActive = true;
+    let finishTimer: ReturnType<typeof setTimeout> | undefined;
+
     import("./utils/initialFX").then((module) => {
-      if (isLoaded) {
-        setClicked(true);
-        setTimeout(() => {
-          if (module.initialFX) {
-            module.initialFX();
-          }
-          setIsLoading(false);
-        }, 900);
+      if (!isActive) {
+        return;
       }
+
+      setClicked(true);
+      finishTimer = setTimeout(() => {
+        module.initialFX?.();
+        setIsLoading(false);
+      }, 900);
     });
-  }, [isLoaded]);
+
+    return () => {
+      isActive = false;
+      if (finishTimer) {
+        clearTimeout(finishTimer);
+      }
+    };
+  }, [isLoaded, setIsLoading]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
     const { currentTarget: target } = e;
