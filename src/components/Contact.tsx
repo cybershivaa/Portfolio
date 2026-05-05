@@ -1,68 +1,92 @@
 import { MdArrowOutward, MdCopyright } from "react-icons/md";
-import "./styles/Contact.css";
 
 const Contact = () => {
+  const socialLinks = [
+    { name: "Github", url: "https://github.com/cybershivaa" },
+    { name: "Linkedin", url: "https://www.linkedin.com/in/shivam-kumar-6286982b3" },
+    { name: "Twitter", url: "https://x.com/Shivamkr2004" },
+    { name: "Instagram", url: "https://www.instagram.com/krr._shivam" },
+  ];
+
   return (
-    <div className="contact-section section-container" id="contact">
-      <div className="contact-container">
-        <h3>Contact</h3>
-        <div className="contact-flex">
-          <div className="contact-box">
-            <h4>Email</h4>
-            <p>
-              <a href="mailto:shivamkumar07514@gmail.com" data-cursor="disable">
-                shivamkumar07514@gmail.com
-              </a>
-            </p>
-            <h4>Education</h4>
-            <p>B.Tech in Computer Science and Engineering</p>
+    <section id="contact" className="relative w-full px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 bg-gradient-to-b from-slate-950 to-slate-900">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            Get In <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Touch</span>
+          </h2>
+          <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
+            Have a project in mind? Let's collaborate and bring your ideas to life.
+          </p>
+        </div>
+
+        {/* Contact Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+          {/* Email Box */}
+          <div className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-cyan-400/20 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10">
+            <h3 className="text-lg font-semibold text-white mb-4">Email</h3>
+            <a
+              href="mailto:shivamkumar07514@gmail.com"
+              data-cursor="disable"
+              className="text-cyan-400 hover:text-cyan-300 transition-colors break-all font-medium mb-6 block"
+            >
+              shivamkumar07514@gmail.com
+            </a>
+            <div className="border-t border-gray-700 pt-4">
+              <h4 className="text-sm font-semibold text-gray-400 mb-2">Education</h4>
+              <p className="text-gray-300 text-sm">
+                B.Tech in Computer Science and Engineering
+              </p>
+            </div>
           </div>
-          <div className="contact-box">
-            <h4>Social</h4>
-            <a
-              href="https://github.com/cybershivaa"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Github <MdArrowOutward />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/shivam-kumar-6286982b3"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Linkedin <MdArrowOutward />
-            </a>
-            <a
-              href="https://x.com/Shivamkr2004"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Twitter <MdArrowOutward />
-            </a>
-            <a
-              href="https://www.instagram.com/krr._shivam"
-              target="_blank"
-              data-cursor="disable"
-              className="contact-social"
-            >
-              Instagram <MdArrowOutward />
-            </a>
+
+          {/* Social Links Box */}
+          <div className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-purple-400/20 hover:border-purple-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+            <h3 className="text-lg font-semibold text-white mb-4">Social</h3>
+            <div className="space-y-3">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="disable"
+                  className="flex items-center gap-2 text-gray-300 hover:text-cyan-400 transition-colors group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform">{link.name}</span>
+                  <MdArrowOutward className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </a>
+              ))}
+            </div>
           </div>
-          <div className="contact-box">
-            <h2>
-              Designed and Developed <br /> by <span>Shivam Kumar</span>
-            </h2>
-            <h5>
-              <MdCopyright /> 2025
-            </h5>
+
+          {/* Footer Credit Box */}
+          <div className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-pink-400/20 hover:border-pink-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10 flex flex-col justify-between">
+            <div>
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white leading-tight">
+                Designed and <br /> Developed by <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Shivam Kumar</span>
+              </h3>
+            </div>
+            <div className="flex items-center gap-1 text-gray-400 text-sm mt-4">
+              <MdCopyright className="w-4 h-4" />
+              <span>2025</span>
+            </div>
           </div>
         </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-12 md:mt-16 text-center">
+          <a
+            href="mailto:shivamkumar07514@gmail.com"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"
+          >
+            <span>Send Me an Email</span>
+            <MdArrowOutward className="w-5 h-5" />
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
