@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
+import { FaEnvelope, FaGithub, FaLinkedinIn } from "react-icons/fa6";
 
 const Landing = () => {
   const landingRef = useRef<HTMLDivElement>(null);
@@ -35,7 +36,7 @@ const Landing = () => {
       ref={landingRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full min-h-screen flex items-center justify-center pt-16 md:pt-0 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-slate-950 to-slate-900"
+      className="relative w-full min-h-screen flex items-start justify-center pt-24 sm:pt-28 md:pt-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-slate-950 to-slate-900"
       style={{
         "--glow-x": "50%",
         "--glow-y": "50%",
@@ -55,10 +56,10 @@ const Landing = () => {
 
       {/* Main Content Container */}
       <div className="relative z-10 w-full max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 items-center">
           
           {/* Content Section - Mobile: Below image, Desktop: Right */}
-          <div className="order-2 md:order-1 space-y-6 md:space-y-8">
+          <div className="order-2 md:order-1 space-y-5 md:space-y-6">
             {/* Kicker */}
             <div>
               <p className="text-xs sm:text-sm uppercase tracking-widest font-semibold text-cyan-400 mb-2">
@@ -66,24 +67,23 @@ const Landing = () => {
               </p>
               
               {/* Main Heading */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-2 md:mb-4">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-2 md:mb-3">
                 Shivam Kumar
               </h1>
 
               {/* Role/Title */}
-              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 md:mb-6">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-3 md:mb-4">
                 Full Stack Developer & Software Engineer
               </h2>
             </div>
 
             {/* Description */}
             <p className="text-sm sm:text-base md:text-lg text-gray-400 leading-relaxed max-w-xl">
-              I design and build scalable web applications using React, Node.js, and MongoDB. 
-              Focused on performance, clean architecture, and seamless user experience.
+              Passionate Full Stack Developer and Computer Science student with hands-on experience in building modern, scalable, and user-focused web applications. Currently working as a Full Stack Developer Intern at Properties Professor, where I contribute to CRM systems, cloud-based platforms, and automation solutions using React, Node.js, MongoDB, and modern deployment technologies.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-2 md:pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 pt-2 md:pt-3">
               <a
                 href="#work"
                 data-cursor="disable"
@@ -104,23 +104,67 @@ const Landing = () => {
             </div>
           </div>
 
-          {/* Profile Image Section - Mobile: Above content, Desktop: Left */}
-          <div className="order-1 md:order-2 flex justify-center md:justify-end">
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
-              {/* Glow Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/30 to-purple-500/30 rounded-full blur-2xl opacity-75" />
-              
-              {/* Image Container */}
-              <div className="absolute inset-0 rounded-full overflow-hidden border-2 border-cyan-400/30 hover:border-cyan-400/60 transition-colors duration-300 shadow-2xl shadow-cyan-500/20">
+          {/* Profile Card Section - Mobile: Above content, Desktop: Left */}
+          <div className="order-1 md:order-2 flex items-center justify-center">
+            <div className="w-full max-w-[350px] rounded-[22px] border border-white/10 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-3 shadow-[0_14px_34px_rgba(0,0,0,0.28)]">
+              <div className="overflow-hidden rounded-[18px]">
                 <img
                   src="/images/profile.jpg"
-                  alt="Shivam Kumar - Full Stack Developer"
-                  className="w-full h-full object-cover"
+                  alt="Shivam Kumar"
+                  className="h-[245px] w-full object-cover object-top sm:h-[275px]"
                 />
               </div>
 
-              {/* Gradient Ring (shifted slightly left) */}
-              <div className="absolute inset-0 transform -translate-x-4 rounded-full bg-gradient-to-br from-cyan-400/20 via-transparent to-purple-400/20 animate-pulse" />
+              <div className="mt-2.5 space-y-2">
+                <div className="rounded-2xl bg-white/5 px-3 py-2 text-center border border-white/10">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-400 mb-1">Education</p>
+                  <p className="text-sm sm:text-base font-medium text-white">B.Tech CSE</p>
+                  <p className="text-sm sm:text-base text-gray-300">Amity University</p>
+                </div>
+
+                <div className="rounded-2xl bg-white/5 px-3 py-2 text-center border border-white/10">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-400 mb-1">Focus</p>
+                  <p className="text-xs sm:text-sm font-medium text-white leading-relaxed">
+                    Software Development, Full Stack Developer
+                  </p>
+                </div>
+
+                <div className="rounded-2xl bg-white/5 px-3 py-2 text-center border border-white/10">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-400 mb-1">Based In</p>
+                  <p className="text-sm sm:text-base font-medium text-white">Noida, India</p>
+                </div>
+              </div>
+
+              <div className="mt-3 flex items-center justify-center gap-3">
+                <a
+                  href="mailto:shivamkumar07514@gmail.com"
+                  aria-label="Email Shivam Kumar"
+                  data-cursor="disable"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-200 transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/10 hover:scale-105"
+                >
+                  <FaEnvelope className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://github.com/cybershivaa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub profile"
+                  data-cursor="disable"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-200 transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/10 hover:scale-105"
+                >
+                  <FaGithub className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/shivam-kumar-6286982b3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn profile"
+                  data-cursor="disable"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-200 transition-all duration-300 hover:border-cyan-400/30 hover:bg-white/10 hover:scale-105"
+                >
+                  <FaLinkedinIn className="h-4 w-4" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

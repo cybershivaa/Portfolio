@@ -62,10 +62,10 @@ const Work = () => {
   const currentProject = projects[currentIndex];
 
   return (
-    <section id="work" className="relative w-full px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 bg-gradient-to-b from-slate-900 to-slate-950">
+    <section id="work" className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="mb-12 md:mb-16">
+        <div className="mb-8 md:mb-10 text-center flex flex-col items-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             My <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Projects</span>
           </h2>
@@ -110,9 +110,9 @@ const Work = () => {
 
           {/* Desktop: Carousel Layout */}
           <div className="hidden md:block">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
               {/* Project Info */}
-              <div className="space-y-6 lg:order-1">
+              <div className="space-y-5 lg:order-1">
                 {/* Project Number */}
                 <div>
                   <p className="text-6xl lg:text-7xl font-bold text-cyan-400/20 leading-none">
@@ -122,10 +122,10 @@ const Work = () => {
 
                 {/* Project Details */}
                 <div>
-                  <h3 className="text-3xl lg:text-4xl font-bold text-white mb-3">
+                  <h3 className="text-3xl lg:text-4xl font-bold text-white mb-2">
                     {currentProject.title}
                   </h3>
-                  <p className="text-lg text-cyan-400 font-semibold mb-4">
+                  <p className="text-lg text-cyan-400 font-semibold mb-3">
                     {currentProject.category}
                   </p>
                 </div>
@@ -164,7 +164,7 @@ const Work = () => {
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex items-center justify-between mt-12 md:mt-16">
+          <div className="flex items-center justify-between mt-8 md:mt-10">
             {/* Arrows */}
             <div className="flex gap-4">
               <button

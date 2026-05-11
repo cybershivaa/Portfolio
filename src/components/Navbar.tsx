@@ -88,15 +88,20 @@ const Navbar = () => {
   return (
     <nav className="header nav-fade fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-out bg-gradient-to-b from-slate-950/95 via-slate-950/90 to-slate-950/80 backdrop-blur-md border-b border-cyan-500/10">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-        <div className="flex items-center justify-between h-full">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-full relative">
+          {/* Logo - Left */}
           <a
             href="/#"
-            className="text-lg sm:text-xl font-bold text-white hover:text-cyan-400 transition-colors duration-200"
+            className="text-lg sm:text-xl font-bold text-white hover:text-cyan-400 transition-colors duration-200 whitespace-nowrap"
             data-cursor="disable"
           >
             SK
           </a>
+
+          {/* Center Brand */}
+          <div className="absolute left-1/3 transform -translate-x-1/2">
+            <span className="text-white font-bold text-sm sm:text-base whitespace-nowrap">PERSONAL PORTFOLIO</span>
+          </div>
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex items-center gap-8">

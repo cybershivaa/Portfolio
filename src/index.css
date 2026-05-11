@@ -124,8 +124,8 @@ body {
   overflow: clip;
   height: var(--vh);
   margin: auto;
-  margin-top: 50px;
-  margin-bottom: -100px;
+  margin-top: 24px;
+  margin-bottom: -60px;
 }
 
 .techstack h2 {
@@ -262,4 +262,31 @@ a {
   .icons-section {
     left: 12px !important;
   }
+}
+
+/* Reusable glass card and badge components */
+/* Reusable glass card and badge styles (plain CSS to avoid @apply lint issues) */
+.glass-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.glass-badge {
+  padding: 0.25rem 0.5rem;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #eef2ff;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.glass-badge:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
 }

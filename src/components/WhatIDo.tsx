@@ -34,17 +34,17 @@ const WhatIDo = () => {
   ];
 
   return (
-    <section className="relative w-full px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 bg-gradient-to-b from-slate-900 to-slate-950">
+    <section className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-900 to-slate-950">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
-        <div className="mb-12 md:mb-16 text-center">
+        <div className="mb-8 md:mb-10 text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
             <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">What I</span> <span className="text-white">Do</span>
           </h2>
         </div>
 
         {/* Mobile: Tab Navigation */}
-        <div className="md:hidden flex gap-4 mb-8">
+        <div className="md:hidden flex gap-4 mb-6">
           <button
             onClick={() => setActiveTab("frontend")}
             className={`flex-1 px-4 py-3 rounded-lg font-semibold transition-all duration-300 ${
@@ -120,14 +120,14 @@ const WhatIDo = () => {
         </div>
 
         {/* Desktop: Side by Side Grid */}
-        <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {services.map((service) => (
             <div
               key={service.id}
-              className="p-8 lg:p-10 rounded-lg border border-gray-700/50 hover:border-cyan-400/50 bg-gradient-to-br from-slate-800/30 to-transparent hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300"
+              className="p-7 lg:p-8 rounded-lg border border-gray-700/50 hover:border-cyan-400/50 bg-gradient-to-br from-slate-800/30 to-transparent hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300"
             >
               {/* Header */}
-              <div className="mb-6">
+                <div className="mb-5">
                 <h3 className="text-2xl lg:text-3xl font-bold text-white mb-2">
                   {service.title}
                 </h3>
@@ -137,7 +137,7 @@ const WhatIDo = () => {
               </div>
 
               {/* Description */}
-              <p className="text-gray-300 mb-8 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed">
                 {service.description}
               </p>
 

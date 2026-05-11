@@ -9,10 +9,10 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative w-full px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 bg-gradient-to-b from-slate-950 to-slate-900">
+    <section id="contact" className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="mb-12 md:mb-16 text-center">
+        <div className="mb-8 md:mb-10 text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Get In <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Touch</span>
           </h2>
@@ -22,7 +22,7 @@ const Contact = () => {
         </div>
 
         {/* Contact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-5">
           {/* Email Box */}
           <div className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-cyan-400/20 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10">
             <h3 className="text-lg font-semibold text-white mb-4">Email</h3>
@@ -68,15 +68,15 @@ const Contact = () => {
                 Designed and <br /> Developed by <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Shivam Kumar</span>
               </h3>
             </div>
-            <div className="flex items-center gap-1 text-gray-400 text-sm mt-4">
+            <div className="flex items-center gap-1 text-gray-400 text-sm mt-3">
               <MdCopyright className="w-4 h-4" />
-              <span>2025</span>
+              <span>2026 Shivam Kumar. All rights reserved.</span>
             </div>
           </div>
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-12 md:mt-16 text-center">
+        <div className="mt-8 md:mt-10 text-center">
           <a
             href="mailto:shivamkumar07514@gmail.com"
             className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"

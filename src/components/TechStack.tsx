@@ -167,10 +167,11 @@ const TechStack = () => {
   }, []);
 
   return (
-    <div className="techstack" id="techstack">
-      <h2> My Techstack</h2>
+    <section className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+      <div className="techstack" id="techstack">
+        <h2> My Techstack</h2>
 
-      <Canvas
+        <Canvas
         shadows
         gl={{ alpha: true, stencil: false, depth: false, antialias: false }}
         camera={{ position: [0, 0, 20], fov: 32.5, near: 1, far: 100 }}
@@ -207,7 +208,8 @@ const TechStack = () => {
           <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
         </EffectComposer>
       </Canvas>
-    </div>
+      </div>
+    </section>
   );
 };
 
