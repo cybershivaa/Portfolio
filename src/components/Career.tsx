@@ -24,7 +24,7 @@ const Career = () => {
     {
       role: "Properties Professor CRM",
       company: "Properties Professor Real Estate Company",
-      year: "2026",
+      year: "Present",
       description: "Currently developing a complete real estate CRM system including lead management, property listings, broker dashboards, and automation tools. Built using React, Node.js, MongoDB, and DigitalOcean Spaces for media storage. Implemented secure authentication, API integrations, and production deployment.",
       links: [
         { label: "Dashboard", url: "https://dashboard.propertiesprofessor.com" },
@@ -76,8 +76,15 @@ const Career = () => {
                         {exp.company}
                       </p>
                     </div>
-                    <div className="text-sm font-semibold text-gray-400 mt-2 md:mt-0">
-                      {exp.year}
+                    <div className="mt-2 md:mt-0">
+                      {exp.year === "Present" ? (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 border border-emerald-400/40 text-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.25)]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
+                          Present
+                        </span>
+                      ) : (
+                        <span className="text-sm font-semibold text-gray-400">{exp.year}</span>
+                      )}
                     </div>
                   </div>
 

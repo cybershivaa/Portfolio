@@ -5,6 +5,7 @@ import Contact from "./Contact";
 import Cursor from "./Cursor";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
+import Skills from "./Skills";
 import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
@@ -39,6 +40,7 @@ const MainContainer = () => {
           <div className="container-main">
             <Landing />
             <About />
+            <Skills />
             <WhatIDo />
             <Career />
             <Work />

@@ -1,4 +1,4 @@
-import { MdArrowOutward, MdCopyright } from "react-icons/md";
+import { MdArrowOutward } from "react-icons/md";
 
 const Contact = () => {
   const socialLinks = [
@@ -68,23 +68,9 @@ const Contact = () => {
                 Designed and <br /> Developed by <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Shivam Kumar</span>
               </h3>
             </div>
-            <div className="flex items-center gap-1 text-gray-400 text-sm mt-3">
-              <MdCopyright className="w-4 h-4" />
-              <span>2026 Shivam Kumar. All rights reserved.</span>
-            </div>
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="mt-8 md:mt-10 text-center">
-          <a
-            href="mailto:shivamkumar07514@gmail.com"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"
-          >
-            <span>Send Me an Email</span>
-            <MdArrowOutward className="w-5 h-5" />
-          </a>
-        </div>
       </div>
     </section>
   );

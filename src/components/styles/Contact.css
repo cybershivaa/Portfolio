@@ -4,7 +4,12 @@
   margin-top: 60px;
   position: relative;
   z-index: 2;
-  background-color: var(--backgroundColor);
+  /* Subtle rose/violet gradient unique to footer/contact */
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(244, 114, 182, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 50%,  rgba(192, 132, 252, 0.07) 0%, transparent 55%),
+    transparent;
+  isolation: isolate;
 }
 
 .contact-section h3 {

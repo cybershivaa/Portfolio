@@ -2,8 +2,13 @@
 .work-section {
   position: relative;
   z-index: 1;
-  background-color: var(--backgroundColor);
   padding: 60px 0;
+  /* Section gradient overlay – sits on top of global orbs */
+  background:
+    radial-gradient(ellipse 80% 60% at 80% 30%, rgba(129, 140, 248, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 10% 80%, rgba(103, 232, 249, 0.05) 0%, transparent 55%),
+    transparent;
+  isolation: isolate;
 }
 
 .work-section h2 {
@@ -34,8 +39,31 @@
 .carousel-track-container {
   overflow: hidden;
   width: 100%;
-  border-top: 1px solid #363636;
-  border-bottom: 1px solid #363636;
+  border-top: 1px solid rgba(129, 140, 248, 0.15);
+  border-bottom: 1px solid rgba(103, 232, 249, 0.12);
+  position: relative;
+}
+
+.carousel-track-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(103, 232, 249, 0.4) 30%, rgba(129, 140, 248, 0.5) 60%, transparent 100%);
+  pointer-events: none;
+}
+
+.carousel-track-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(192, 132, 252, 0.35) 40%, rgba(103, 232, 249, 0.3) 70%, transparent 100%);
+  pointer-events: none;
 }
 
 .carousel-track {

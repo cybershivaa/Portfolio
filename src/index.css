@@ -29,7 +29,7 @@
   --accentGradientText: linear-gradient(135deg, #5eead4, #818cf8, #c084fc);
   --accentGlow: rgba(94, 234, 212, 0.15);
   --accentGlowSecondary: rgba(129, 140, 248, 0.15);
-  --backgroundColor: #060b18;
+  --backgroundColor: #03040d;
   --surfaceColor: rgba(255, 255, 255, 0.03);
   --surfaceBorder: rgba(255, 255, 255, 0.06);
   --glassBackground: rgba(6, 11, 24, 0.7);
@@ -81,7 +81,7 @@ main {
 body {
   margin: 0;
   height: auto;
-  background-color: #040810;
+  background-color: #03040d;
   flex-grow: 1;
   --cWidth: calc(100% - 30px);
   --cMaxWidth: 1920px;
@@ -92,6 +92,8 @@ body {
 .main-body {
   max-width: 100vw;
   overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
 }
 
 .container-main {
@@ -166,14 +168,15 @@ body {
   background-color: var(--backgroundColor);
   --accentColor: #67e8f9;
   --accentSecondary: #818cf8;
+  --accentTertiary: #f472b6;
   --accentGradient: linear-gradient(135deg, #67e8f9 0%, #818cf8 48%, #c084fc 100%);
   --accentGradientText: linear-gradient(135deg, #67e8f9, #818cf8, #c084fc);
   --accentGlow: rgba(103, 232, 249, 0.18);
   --accentGlowSecondary: rgba(129, 140, 248, 0.18);
-  --backgroundColor: #050816;
-  --surfaceColor: rgba(11, 16, 31, 0.7);
+  --backgroundColor: #03040d;
+  --surfaceColor: rgba(10, 13, 28, 0.75);
   --surfaceBorder: rgba(255, 255, 255, 0.09);
-  --glassBackground: rgba(7, 11, 23, 0.66);
+  --glassBackground: rgba(5, 7, 18, 0.7);
   --glassBorder: rgba(255, 255, 255, 0.1);
   --textMuted: #a8b2cc;
   --lightGray: #cbd5e1;
@@ -189,19 +192,29 @@ html {
   box-sizing: border-box;
 }
 
+/* ── Premium Background System ── */
 body {
   min-height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
   overflow-y: auto;
   margin: 0;
-  background:
-    radial-gradient(circle at 18% 18%, rgba(103, 232, 249, 0.14), transparent 28%),
-    radial-gradient(circle at 82% 10%, rgba(192, 132, 252, 0.12), transparent 24%),
-    linear-gradient(180deg, #050816 0%, #070c18 45%, #04070f 100%);
+  /* Deep multi-layered space background */
+  background-color: #03040d;
+  background-image:
+    /* Animated-ready orb layer (static base positions) */
+    radial-gradient(ellipse 70% 55% at 10% 5%,  rgba(103, 232, 249, 0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 8%,  rgba(192, 132, 252, 0.13) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 50% 50%, rgba(129, 140, 248, 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(244, 114, 182, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 45% 38% at 85% 88%, rgba(103, 232, 249, 0.08) 0%, transparent 50%),
+    /* Base gradient */
+    linear-gradient(160deg, #05071a 0%, #07091f 20%, #030510 50%, #060818 75%, #04050f 100%);
   color: var(--lightGray);
+  position: relative;
 }
 
+/* Fixed ambient glow orbs — always visible regardless of scroll */
 body::before,
 body::after {
   content: "";
@@ -209,24 +222,81 @@ body::after {
   inset: auto;
   pointer-events: none;
   z-index: -1;
-  filter: blur(80px);
-  opacity: 0.5;
+  border-radius: 50%;
 }
 
 body::before {
-  width: 28rem;
-  height: 28rem;
-  top: -8rem;
-  left: -6rem;
-  background: rgba(103, 232, 249, 0.16);
+  width: 42rem;
+  height: 42rem;
+  top: -14rem;
+  left: -12rem;
+  background: radial-gradient(circle, rgba(103, 232, 249, 0.18) 0%, rgba(103, 232, 249, 0.06) 45%, transparent 70%);
+  filter: blur(60px);
+  animation: orbDriftA 22s ease-in-out infinite alternate;
 }
 
 body::after {
-  width: 24rem;
-  height: 24rem;
-  right: -5rem;
-  bottom: -4rem;
-  background: rgba(192, 132, 252, 0.14);
+  width: 38rem;
+  height: 38rem;
+  right: -10rem;
+  bottom: -10rem;
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.18) 0%, rgba(129, 140, 248, 0.07) 45%, transparent 70%);
+  filter: blur(70px);
+  animation: orbDriftB 28s ease-in-out infinite alternate;
+}
+
+/* Extra mid-screen orb injected via a wrapper pseudo — we use a no-op selector trick */
+.main-body::before {
+  content: "";
+  position: fixed;
+  width: 32rem;
+  height: 32rem;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(244, 114, 182, 0.09) 0%, rgba(129, 140, 248, 0.06) 40%, transparent 70%);
+  filter: blur(80px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: orbDriftC 34s ease-in-out infinite alternate;
+}
+
+@keyframes orbDriftA {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(60px, 40px) scale(1.1); }
+  100% { transform: translate(-30px, 80px) scale(0.95); }
+}
+
+@keyframes orbDriftB {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-50px, -60px) scale(1.08); }
+  100% { transform: translate(40px, -30px) scale(0.92); }
+}
+
+@keyframes orbDriftC {
+  0%   { transform: translateX(-50%) scale(1); opacity: 0.7; }
+  50%  { transform: translateX(-45%) scale(1.15); opacity: 1; }
+  100% { transform: translateX(-55%) scale(0.9); opacity: 0.5; }
+}
+
+/* Subtle noise / grain overlay for premium texture */
+@property --noise-opacity {
+  syntax: '<number>';
+  initial-value: 0.03;
+  inherits: false;
+}
+
+.main-body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  background-repeat: repeat;
 }
 
 h1,
