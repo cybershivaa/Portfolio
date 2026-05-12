@@ -1,6 +1,9 @@
+import { useRef, useEffect } from "react";
 import { MdArrowOutward } from "react-icons/md";
 
 const Contact = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
   const socialLinks = [
     { name: "Github", url: "https://github.com/cybershivaa" },
     { name: "Linkedin", url: "https://www.linkedin.com/in/shivam-kumar-6286982b3" },
@@ -8,13 +11,48 @@ const Contact = () => {
     { name: "Instagram", url: "https://www.instagram.com/krr._shivam" },
   ];
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const animatedEls = Array.from(
+      section.querySelectorAll<HTMLElement>("[data-scroll-animate], [data-anim]")
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add("scroll-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    animatedEls.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="contact" className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="mb-8 md:mb-10 text-center">
+        <div
+          className="mb-8 md:mb-10 text-center"
+          data-scroll-animate="fade-up"
+          style={{ "--anim-duration": "700ms", "--anim-delay": "0ms" } as React.CSSProperties}
+        >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-            Get In <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Touch</span>
+            Get In{" "}
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Touch
+            </span>
           </h2>
           <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto">
             Have a project in mind? Let's collaborate and bring your ideas to life.
@@ -24,7 +62,11 @@ const Contact = () => {
         {/* Contact Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-5">
           {/* Email Box */}
-          <div className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-cyan-400/20 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10">
+          <div
+            className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-cyan-400/20 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
+            data-anim
+            style={{ "--anim-delay": "100ms" } as React.CSSProperties}
+          >
             <h3 className="text-lg font-semibold text-white mb-4">Email</h3>
             <a
               href="mailto:shivamkumar07514@gmail.com"
@@ -42,7 +84,11 @@ const Contact = () => {
           </div>
 
           {/* Social Links Box */}
-          <div className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-purple-400/20 hover:border-purple-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
+          <div
+            className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-purple-400/20 hover:border-purple-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
+            data-anim
+            style={{ "--anim-delay": "220ms" } as React.CSSProperties}
+          >
             <h3 className="text-lg font-semibold text-white mb-4">Social</h3>
             <div className="space-y-3">
               {socialLinks.map((link) => (
@@ -54,7 +100,9 @@ const Contact = () => {
                   data-cursor="disable"
                   className="flex items-center gap-2 text-gray-300 hover:text-cyan-400 transition-colors group"
                 >
-                  <span className="group-hover:translate-x-1 transition-transform">{link.name}</span>
+                  <span className="group-hover:translate-x-1 transition-transform">
+                    {link.name}
+                  </span>
                   <MdArrowOutward className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </a>
               ))}
@@ -62,21 +110,33 @@ const Contact = () => {
           </div>
 
           {/* Footer Credit Box */}
-          <div className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-pink-400/20 hover:border-pink-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10 flex flex-col justify-between">
+          <div
+            className="p-6 md:p-8 rounded-lg bg-gradient-to-br from-slate-800/50 to-transparent border border-pink-400/20 hover:border-pink-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10 flex flex-col justify-between"
+            data-anim
+            style={{ "--anim-delay": "340ms" } as React.CSSProperties}
+          >
             <div>
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white leading-tight">
-                Designed and <br /> Developed by <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Shivam Kumar</span>
+                Designed and <br /> Developed by{" "}
+                <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                  Shivam Kumar
+                </span>
               </h3>
             </div>
           </div>
         </div>
+
         {/* Footer Copyright Bar */}
-        <div className="mt-12 pt-6 border-t border-white/10">
+        <div
+          className="mt-12 pt-6 border-t border-white/10"
+          data-scroll-animate="fade-up"
+          style={{ "--anim-duration": "600ms", "--anim-delay": "400ms" } as React.CSSProperties}
+        >
           <p className="text-center text-gray-500 text-sm">
-            © 2026 <span className="text-gray-300 font-medium">Shivam Kumar</span>. All rights reserved.
+            © 2026{" "}
+            <span className="text-gray-300 font-medium">Shivam Kumar</span>. All rights reserved.
           </p>
         </div>
-
       </div>
     </section>
   );

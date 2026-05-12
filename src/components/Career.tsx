@@ -1,31 +1,39 @@
+import { useRef, useEffect } from "react";
+
 const Career = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
   const experiences = [
     {
       role: "Client Projects",
       company: "Freelance / Clients",
       year: "2025",
-      description: "Worked with multiple clients to develop full-stack web applications using React.js, Node.js, and MongoDB. Built responsive dashboards, implemented REST APIs, handled authentication, and deployed projects on Vercel and cloud servers. Focused on performance optimization and scalable architecture.",
+      description:
+        "Worked with multiple clients to develop full-stack web applications using React.js, Node.js, and MongoDB. Built responsive dashboards, implemented REST APIs, handled authentication, and deployed projects on Vercel and cloud servers. Focused on performance optimization and scalable architecture.",
       links: [],
     },
     {
       role: "InspectX",
       company: "InspectX",
       year: "2025",
-      description: "Developed the InspectX inspection and reporting platform with React.js frontend and Node.js backend. Implemented dynamic inspection forms, role-based access control, media uploads, and real-time data management. Integrated MongoDB database and cloud storage for handling inspection reports efficiently.",
+      description:
+        "Developed the InspectX inspection and reporting platform with React.js frontend and Node.js backend. Implemented dynamic inspection forms, role-based access control, media uploads, and real-time data management. Integrated MongoDB database and cloud storage for handling inspection reports efficiently.",
       links: [{ label: "InspectX App", url: "https://inspect-x-app.vercel.app/login" }],
     },
     {
       role: "Helpora",
       company: "Helpora",
       year: "2025",
-      description: "Developed a real-time emergency response platform with SOS alert dashboard and helpline directory. Built responsive React-based UI with quick actions, sidebar navigation, and emergency reporting modules.",
+      description:
+        "Developed a real-time emergency response platform with SOS alert dashboard and helpline directory. Built responsive React-based UI with quick actions, sidebar navigation, and emergency reporting modules.",
       links: [{ label: "Helpora App", url: "https://helpora.vercel.app" }],
     },
     {
       role: "Properties Professor CRM",
       company: "Properties Professor Real Estate Company",
       year: "Present",
-      description: "Currently developing a complete real estate CRM system including lead management, property listings, broker dashboards, and automation tools. Built using React, Node.js, MongoDB, and DigitalOcean Spaces for media storage. Implemented secure authentication, API integrations, and production deployment.",
+      description:
+        "Currently developing a complete real estate CRM system including lead management, property listings, broker dashboards, and automation tools. Built using React, Node.js, MongoDB, and DigitalOcean Spaces for media storage. Implemented secure authentication, API integrations, and production deployment.",
       links: [
         { label: "Dashboard", url: "https://dashboard.propertiesprofessor.com" },
         { label: "Website", url: "https://propertiesprofessor.com" },
@@ -35,19 +43,60 @@ const Career = () => {
       role: "Smart Automation & IoT",
       company: "Smart Automation & IoT Solutions",
       year: "2026",
-      description: "Worked on smart automation and IoT-based systems including sensor integration, microcontrollers (ESP32/Pico), and real-time data monitoring dashboards. Built interactive systems for educational and real-world applications, combining hardware with modern web technologies for seamless control and visualization.",
+      description:
+        "Worked on smart automation and IoT-based systems including sensor integration, microcontrollers (ESP32/Pico), and real-time data monitoring dashboards. Built interactive systems for educational and real-world applications, combining hardware with modern web technologies for seamless control and visualization.",
       links: [],
     },
   ];
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const animatedEls = Array.from(
+      section.querySelectorAll<HTMLElement>("[data-scroll-animate], [data-anim]")
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add("scroll-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+
+    animatedEls.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="career" className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+    <section
+      id="career"
+      ref={sectionRef}
+      className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="mb-8 md:mb-10 text-center flex flex-col items-center">
+        <div
+          className="mb-8 md:mb-10 text-center flex flex-col items-center"
+          data-scroll-animate="fade-up"
+          style={{ "--anim-duration": "700ms", "--anim-delay": "0ms" } as React.CSSProperties}
+        >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-            My Career <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">& Experience</span>
+            My Career{" "}
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              &amp; Experience
+            </span>
           </h2>
+          <div
+            className="section-reveal-line"
+            data-scroll-animate="fade-in"
+            style={{ "--anim-duration": "1000ms", "--anim-delay": "200ms" } as React.CSSProperties}
+          />
         </div>
 
         {/* Timeline */}
@@ -58,7 +107,12 @@ const Career = () => {
           {/* Experience Cards */}
           <div className="space-y-5 md:space-y-6">
             {experiences.map((exp, index) => (
-              <div key={index} className="relative pl-0 md:pl-32">
+              <div
+                key={index}
+                className="relative pl-0 md:pl-32"
+                data-anim
+                style={{ "--anim-delay": `${index * 120}ms` } as React.CSSProperties}
+              >
                 {/* Timeline Dot - Desktop Only */}
                 <div className="hidden md:block absolute left-0 top-6 w-16">
                   <div className="w-4 h-4 rounded-full bg-cyan-400 ring-4 ring-slate-950" />
@@ -72,9 +126,7 @@ const Career = () => {
                       <h3 className="text-lg md:text-xl font-bold text-white mb-1">
                         {exp.role}
                       </h3>
-                      <p className="text-cyan-400 font-semibold">
-                        {exp.company}
-                      </p>
+                      <p className="text-cyan-400 font-semibold">{exp.company}</p>
                     </div>
                     <div className="mt-2 md:mt-0">
                       {exp.year === "Present" ? (

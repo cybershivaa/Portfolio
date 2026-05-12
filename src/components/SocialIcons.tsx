@@ -49,32 +49,6 @@ const SocialIcons: React.FC = () => {
 
   return (
     <>
-      {/* Desktop Sidebar - Bottom Left */}
-      <div className="icons-section hidden md:fixed md:left-8 md:bottom-24 lg:bottom-32 md:flex md:flex-col md:gap-4 md:z-40">
-        <div className="flex flex-col gap-4" data-cursor="icons" data-social="desktop">
-          {socialLinks.map((link) => {
-            const Icon = link.icon;
-            return (
-              <span key={link.name}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={link.name}
-                  className="relative inline-flex items-center justify-center w-10 h-10 text-gray-400 bg-slate-800 hover:text-cyan-400 transition-transform duration-150 rounded-lg border border-gray-700 hover:border-cyan-400 hover:bg-cyan-400/10 group"
-                  style={{ transform: "translate(0px, 0px)" }}
-                >
-                  <Icon className="w-5 h-5" />
-                  <span className="social-tooltip absolute left-full ml-3 px-3 py-1 bg-slate-900 text-cyan-400 text-xs font-semibold rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-cyan-400/30 pointer-events-none">
-                    {link.name}
-                  </span>
-                </a>
-              </span>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Mobile Bottom Bar */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-t from-slate-950 to-slate-950/80 border-t border-cyan-500/20 backdrop-blur-md z-40">
         <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">

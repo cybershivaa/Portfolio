@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward, MdArrowOutward } from "react-icons/md";
 
@@ -30,10 +30,11 @@ const projects = [
     tools: "React.js, Tailwind CSS, JavaScript",
     image: "/images/helpora.png",
     link: "https://helpora.vercel.app",
-  }
+  },
 ];
 
 const Work = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -61,14 +62,54 @@ const Work = () => {
 
   const currentProject = projects[currentIndex];
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const animatedEls = Array.from(
+      section.querySelectorAll<HTMLElement>("[data-scroll-animate], [data-anim]")
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add("scroll-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    animatedEls.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="work" className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+    <section
+      id="work"
+      ref={sectionRef}
+      className="relative w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 bg-gradient-to-b from-slate-950 to-slate-900"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="mb-8 md:mb-10 text-center flex flex-col items-center">
+        <div
+          className="mb-8 md:mb-10 text-center flex flex-col items-center"
+          data-scroll-animate="fade-up"
+          style={{ "--anim-duration": "700ms", "--anim-delay": "0ms" } as React.CSSProperties}
+        >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
-            My <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Projects</span>
+            My{" "}
+            <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Projects
+            </span>
           </h2>
+          <div
+            className="section-reveal-line mt-3"
+            data-scroll-animate="fade-in"
+            style={{ "--anim-duration": "1000ms", "--anim-delay": "250ms" } as React.CSSProperties}
+          />
         </div>
 
         {/* Carousel Container */}
@@ -78,6 +119,8 @@ const Work = () => {
             {projects.map((project, index) => (
               <div
                 key={index}
+                data-anim
+                style={{ "--anim-delay": `${index * 100}ms` } as React.CSSProperties}
                 className={`p-6 rounded-lg border transition-all duration-300 ${
                   index === currentIndex
                     ? "border-cyan-400/50 bg-gradient-to-br from-slate-800/50 to-transparent shadow-lg shadow-cyan-500/20"
@@ -92,7 +135,7 @@ const Work = () => {
                   <span className="text-2xl font-bold text-cyan-400/30">0{index + 1}</span>
                 </div>
                 <div className="mb-4">
-                  <p className="text-xs font-semibold text-gray-400 mb-2">Tools & Features</p>
+                  <p className="text-xs font-semibold text-gray-400 mb-2">Tools &amp; Features</p>
                   <p className="text-sm text-gray-300">{project.tools}</p>
                 </div>
                 <a
@@ -112,7 +155,11 @@ const Work = () => {
           <div className="hidden md:block">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
               {/* Project Info */}
-              <div className="space-y-5 lg:order-1">
+              <div
+                className="space-y-5 lg:order-1"
+                data-scroll-animate="fade-right"
+                style={{ "--anim-duration": "750ms", "--anim-delay": "150ms" } as React.CSSProperties}
+              >
                 {/* Project Number */}
                 <div>
                   <p className="text-6xl lg:text-7xl font-bold text-cyan-400/20 leading-none">
@@ -132,10 +179,8 @@ const Work = () => {
 
                 {/* Tools */}
                 <div>
-                  <p className="text-sm font-semibold text-gray-400 mb-2">Tools & Features</p>
-                  <p className="text-gray-300 leading-relaxed">
-                    {currentProject.tools}
-                  </p>
+                  <p className="text-sm font-semibold text-gray-400 mb-2">Tools &amp; Features</p>
+                  <p className="text-gray-300 leading-relaxed">{currentProject.tools}</p>
                 </div>
 
                 {/* CTA Button */}
@@ -151,7 +196,11 @@ const Work = () => {
               </div>
 
               {/* Project Image */}
-              <div className="lg:order-2">
+              <div
+                className="lg:order-2"
+                data-scroll-animate="fade-left"
+                style={{ "--anim-duration": "750ms", "--anim-delay": "250ms" } as React.CSSProperties}
+              >
                 <div className="relative rounded-lg overflow-hidden border border-cyan-400/20 hover:border-cyan-400/50 transition-colors shadow-2xl shadow-cyan-500/10">
                   <WorkImage
                     image={currentProject.image}
@@ -164,7 +213,11 @@ const Work = () => {
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex items-center justify-between mt-8 md:mt-10">
+          <div
+            className="flex items-center justify-between mt-8 md:mt-10"
+            data-scroll-animate="fade-up"
+            style={{ "--anim-duration": "600ms", "--anim-delay": "350ms" } as React.CSSProperties}
+          >
             {/* Arrows */}
             <div className="flex gap-4">
               <button
@@ -205,9 +258,11 @@ const Work = () => {
 
             {/* Counter */}
             <div className="text-sm font-semibold text-gray-400">
-              <span className="text-cyan-400">{String(currentIndex + 1).padStart(2, '0')}</span>
-              {' / '}
-              <span>{String(projects.length).padStart(2, '0')}</span>
+              <span className="text-cyan-400">
+                {String(currentIndex + 1).padStart(2, "0")}
+              </span>
+              {" / "}
+              <span>{String(projects.length).padStart(2, "0")}</span>
             </div>
           </div>
         </div>

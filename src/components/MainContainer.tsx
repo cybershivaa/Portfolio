@@ -36,7 +36,7 @@ const MainContainer = () => {
       <Navbar />
       <SocialIcons />
       <div id="smooth-wrapper">
-        <div id="smooth-content">
+        <div id="smooth-content" className="page-transition-wrapper">
           <div className="container-main">
             <Landing />
             <About />
