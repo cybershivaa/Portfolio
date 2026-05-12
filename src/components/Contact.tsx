@@ -70,6 +70,12 @@ const Contact = () => {
             </div>
           </div>
         </div>
+        {/* Footer Copyright Bar */}
+        <div className="mt-12 pt-6 border-t border-white/10">
+          <p className="text-center text-gray-500 text-sm">
+            © 2026 <span className="text-gray-300 font-medium">Shivam Kumar</span>. All rights reserved.
+          </p>
+        </div>
 
       </div>
     </section>
