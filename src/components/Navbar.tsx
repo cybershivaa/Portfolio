@@ -18,8 +18,8 @@ const Navbar = () => {
     { label: "PROJECTS", href: "#work" },
     { label: "EXPERIENCE", href: "#career" },
     { label: "SKILLS", href: "#techstack" },
-    { label: "STARTUP", href: "https://xyrosolutions.tech/", external: true, featured: true },
     { label: "CONTACT", href: "#contact" },
+    { label: "STARTUP", href: "https://xyrosolutions.tech/", external: true, featured: true },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
