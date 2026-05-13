@@ -18,7 +18,7 @@ const Navbar = () => {
     { label: "PROJECTS", href: "#work" },
     { label: "EXPERIENCE", href: "#career" },
     { label: "SKILLS", href: "#techstack" },
-    { label: "StartUp", href: "https://xyrosolutions.tech/", external: true },
+    { label: "STARTUP", href: "https://xyrosolutions.tech/", external: true, featured: true },
     { label: "CONTACT", href: "#contact" },
   ];
 
@@ -117,9 +117,13 @@ const Navbar = () => {
                   onClick={item.external ? handleExternalClick : (e) => handleNavClick(e, item.href)}
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noreferrer" : undefined}
-                  className="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition-colors duration-200 relative group"
+                  className={
+                    item.featured
+                      ? "group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-cyan-200/40 bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 px-5 py-2.5 text-xs font-black uppercase tracking-[0.24em] text-slate-950 shadow-[0_16px_40px_rgba(34,211,238,0.38)] transition-all duration-300 before:pointer-events-none before:absolute before:inset-y-0 before:left-[-45%] before:w-1/2 before:skew-x-[-20deg] before:bg-white/35 before:blur-xl before:content-[''] hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_20px_48px_rgba(34,211,238,0.55)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                      : "text-sm font-semibold text-gray-300 hover:text-cyan-400 transition-colors duration-200 relative group"
+                  }
                 >
-                  <HoverLinks text={item.label} />
+                  {item.featured ? item.label : <HoverLinks text={item.label} />}
                 </a>
               </li>
             ))}
@@ -151,7 +155,11 @@ const Navbar = () => {
                   onClick={item.external ? handleExternalClick : (e) => handleNavClick(e, item.href)}
                   target={item.external ? "_blank" : undefined}
                   rel={item.external ? "noreferrer" : undefined}
-                  className="block px-6 py-3 text-sm font-semibold text-gray-300 hover:text-cyan-400 hover:bg-cyan-400/10 border-b border-slate-700/50 last:border-b-0 transition-all duration-200"
+                  className={
+                    item.featured
+                      ? "relative mx-4 my-2 inline-flex w-fit items-center justify-center overflow-hidden rounded-full border border-cyan-200/40 bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 px-6 py-3 text-xs font-black uppercase tracking-[0.24em] text-slate-950 shadow-[0_16px_34px_rgba(34,211,238,0.32)] transition-all duration-300 before:pointer-events-none before:absolute before:inset-y-0 before:left-[-45%] before:w-1/2 before:skew-x-[-20deg] before:bg-white/35 before:blur-xl before:content-[''] hover:shadow-[0_20px_44px_rgba(34,211,238,0.48)] hover:brightness-110"
+                      : "block px-6 py-3 text-sm font-semibold text-gray-300 hover:text-cyan-400 hover:bg-cyan-400/10 border-b border-slate-700/50 last:border-b-0 transition-all duration-200"
+                  }
                 >
                   {item.label}
                 </a>
