@@ -89,7 +89,7 @@ const Landing = () => {
                 data-cursor="disable"
                 className="group relative px-6 sm:px-8 py-3 md:py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 flex items-center justify-center sm:justify-start gap-2 text-center sm:text-left"
               >
-                <span>🚀 View Projects</span>
+                <span>Projects</span>
                 <FiArrowUpRight className="w-5 h-5 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </a>
 
@@ -99,7 +99,7 @@ const Landing = () => {
                 data-cursor="disable"
                 className="px-6 sm:px-8 py-3 md:py-4 border-2 border-cyan-400 text-cyan-400 font-semibold rounded-lg hover:bg-cyan-400/10 transition-all duration-300 transform hover:scale-105 text-center"
               >
-                📄 Download Resume
+              Resume
               </a>
             </div>
           </div>
