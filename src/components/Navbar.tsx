@@ -18,6 +18,7 @@ const Navbar = () => {
     { label: "PROJECTS", href: "#work" },
     { label: "EXPERIENCE", href: "#career" },
     { label: "SKILLS", href: "#techstack" },
+    { label: "StartUp", href: "https://xyrosolutions.tech/", external: true },
     { label: "CONTACT", href: "#contact" },
   ];
 
@@ -44,6 +45,10 @@ const Navbar = () => {
 
     const node = document.querySelector(targetId);
     node?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const handleExternalClick = () => {
+    setIsMobileMenuOpen(false);
   };
 
   useEffect(() => {
@@ -109,7 +114,9 @@ const Navbar = () => {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
+                  onClick={item.external ? handleExternalClick : (e) => handleNavClick(e, item.href)}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noreferrer" : undefined}
                   className="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition-colors duration-200 relative group"
                 >
                   <HoverLinks text={item.label} />
@@ -141,7 +148,9 @@ const Navbar = () => {
               <li key={item.href}>
                 <a
                   href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
+                  onClick={item.external ? handleExternalClick : (e) => handleNavClick(e, item.href)}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noreferrer" : undefined}
                   className="block px-6 py-3 text-sm font-semibold text-gray-300 hover:text-cyan-400 hover:bg-cyan-400/10 border-b border-slate-700/50 last:border-b-0 transition-all duration-200"
                 >
                   {item.label}
