@@ -61,6 +61,11 @@ const Navbar = () => {
     const onScroll = () => {
       const currentScrollY = window.scrollY;
       if (header) {
+        if (window.innerWidth <= 1024) {
+          header.classList.remove("translate-y-full");
+          return;
+        }
+
         if (isNavScrollingRef.current) {
           header.classList.remove("translate-y-full");
           lastScrollY = currentScrollY;
