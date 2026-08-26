@@ -23,9 +23,10 @@ export const achievements: Achievement[] = [
     description:
       "Won the PSB Hackathon Series 2026 with Team SCOR7 by developing and presenting an innovative technology-driven solution to address a real-world challenge. The hackathon provided an opportunity to demonstrate problem-solving, technical implementation, teamwork, and innovation.",
     images: [
-      "/achievements/psb-hackathon-2026/1.jpg",
-      "/achievements/psb-hackathon-2026/2.jpg",
-      "/achievements/psb-hackathon-2026/3.jpg",
+      "/achievements/psb-hackathon-2026/1.jpeg",
+      "/achievements/psb-hackathon-2026/2.jpeg",
+      "/achievements/psb-hackathon-2026/3.jpeg",
+      "/achievements/psb-hackathon-2026/4.jpeg",
     ],
   },
   {
@@ -36,9 +37,9 @@ export const achievements: Achievement[] = [
     description:
       "Selected as a finalist at Smart India Hackathon 2025 with Team SCOR7, where we developed and presented an innovative technology-driven solution to address a real-world problem. The experience involved collaborative problem-solving, technical development, and presenting the solution at a national-level hackathon.",
     images: [
-      "/achievements/sih-2025/1.jpg",
-      "/achievements/sih-2025/2.jpg",
-      "/achievements/sih-2025/3.jpg",
+      "/achievements/sih-2025/1.jpeg",
+      "/achievements/sih-2025/2.jpeg",
+      "/achievements/sih-2025/3.jpeg",
     ],
   },
 ];
