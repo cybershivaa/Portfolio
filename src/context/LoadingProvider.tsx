@@ -26,7 +26,9 @@ export const LoadingProvider = ({ children }: PropsWithChildren) => {
   };
 
   useEffect(() => {
-    // Immediately trigger entrance animations without any loading screen
+    // Synchronously unlock scroll immediately (no loading screen anymore)
+    document.body.style.overflowY = "auto";
+    // Then trigger entrance animations
     import("../components/utils/initialFX").then((module) => {
       module.initialFX?.();
     });
