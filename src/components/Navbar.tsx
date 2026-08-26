@@ -17,6 +17,7 @@ const Navbar = () => {
     { label: "ABOUT", href: "#about" },
     { label: "PROJECTS", href: "#work" },
     { label: "EXPERIENCE", href: "#career" },
+    { label: "ACHIEVEMENTS", href: "#achievements" },
     { label: "SKILLS", href: "#techstack" },
     { label: "CONTACT", href: "#contact" },
     { label: "STARTUP", href: "https://xyrosolutions.tech/", external: true, featured: true },
@@ -109,7 +110,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden md:flex items-center gap-5">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
@@ -120,7 +121,7 @@ const Navbar = () => {
                   className={
                     item.featured
                       ? "group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-cyan-200/40 bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 px-5 py-2.5 text-xs font-black uppercase tracking-[0.24em] text-slate-950 shadow-[0_16px_40px_rgba(34,211,238,0.38)] transition-all duration-300 before:pointer-events-none before:absolute before:inset-y-0 before:left-[-45%] before:w-1/2 before:skew-x-[-20deg] before:bg-white/35 before:blur-xl before:content-[''] hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_20px_48px_rgba(34,211,238,0.55)] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200/80 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-                      : "text-sm font-semibold text-gray-300 hover:text-cyan-400 transition-colors duration-200 relative group"
+                      : "text-xs font-semibold text-gray-300 hover:text-cyan-400 transition-colors duration-200 relative group"
                   }
                 >
                   {item.featured ? item.label : <HoverLinks text={item.label} />}

@@ -1,0 +1,58 @@
+/* ─────────────────────────────────────────────────────────────
+   PHOTO GALLERY — reusable fullscreen lightbox
+   Lightweight, GPU-friendly transitions only.
+───────────────────────────────────────────────────────────── */
+.pg-overlay {
+  animation: pgOverlayIn 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pgOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.pg-slide {
+  animation: pgSlideIn 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pgSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Thumbnail rail — keep it clean but still scrollable */
+.pg-thumbs {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(103, 232, 249, 0.35) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pg-thumbs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.pg-thumbs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pg-thumbs::-webkit-scrollbar-thumb {
+  background: rgba(103, 232, 249, 0.35);
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-overlay,
+  .pg-slide {
+    animation: none !important;
+  }
+}
