@@ -1,9 +1,11 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import About from "./About";
 import Achievements from "./Achievements";
+import AnnouncementBar from "./AnnouncementBar";
 import Career from "./Career";
 import Contact from "./Contact";
 import Cursor from "./Cursor";
+import FeaturedWin from "./FeaturedWin";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
 import Skills from "./Skills";
@@ -33,6 +35,7 @@ const MainContainer = () => {
 
   return (
     <div className="container-main">
+      <AnnouncementBar />
       <Cursor />
       <Navbar />
       <SocialIcons />
@@ -40,6 +43,7 @@ const MainContainer = () => {
         <div id="smooth-content" className="page-transition-wrapper">
           <div className="container-main">
             <Landing />
+            <FeaturedWin />
             <About />
             <Skills />
             <WhatIDo />

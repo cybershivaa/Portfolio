@@ -92,7 +92,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="header nav-fade fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ease-out bg-gradient-to-b from-slate-950/95 via-slate-950/90 to-slate-950/80 backdrop-blur-md border-b border-cyan-500/10">
+    <nav className="header nav-fade fixed left-0 right-0 z-50 transition-transform duration-300 ease-out bg-gradient-to-b from-slate-950/95 via-slate-950/90 to-slate-950/80 backdrop-blur-md border-b border-cyan-500/10" style={{ top: "38px" }}>
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         <div className="flex items-center justify-between h-full relative">
           {/* Logo - Left */}
