@@ -40,7 +40,7 @@ const AnnouncementBar = () => {
       <div className="flex-1 overflow-hidden relative">
         <div
           className="flex whitespace-nowrap"
-          style={{ animation: "ticker-scroll 28s linear infinite" }}
+          style={{ animation: "ticker-scroll 10s linear infinite" }}
         >
           {[ticker, ticker].map((t, i) => (
             <span
