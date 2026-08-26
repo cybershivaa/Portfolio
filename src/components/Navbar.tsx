@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
-import { smoother } from "./utils/smootherUtils";
+import HoverLinks from "./HoverLinks";
 import { HiMenu, HiX } from "react-icons/hi";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -53,9 +52,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    smoother.scrollTop(0);
-    smoother.paused(true);
-
     const onResize = () => ScrollTrigger.refresh();
     window.addEventListener("resize", onResize);
 
