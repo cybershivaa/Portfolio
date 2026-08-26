@@ -5,7 +5,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import Loading from "../components/Loading";
 
 interface LoadingType {
   isLoading: boolean;
@@ -16,20 +15,26 @@ interface LoadingType {
 export const LoadingContext = createContext<LoadingType | null>(null);
 
 export const LoadingProvider = ({ children }: PropsWithChildren) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [loading, setLoading] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const setLoading = (_percent: number) => {};
 
   const value = {
     isLoading,
     setIsLoading,
     setLoading,
   };
-  useEffect(() => {}, [loading]);
+
+  useEffect(() => {
+    // Immediately trigger entrance animations without any loading screen
+    import("../components/utils/initialFX").then((module) => {
+      module.initialFX?.();
+    });
+  }, []);
 
   return (
     <LoadingContext.Provider value={value as LoadingType}>
-      {isLoading && <Loading percent={loading} />}
-      <main className="main-body">{children}</main>
+      <main className="main-body main-active">{children}</main>
     </LoadingContext.Provider>
   );
 };
