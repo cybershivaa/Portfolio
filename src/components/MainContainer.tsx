@@ -17,21 +17,21 @@ import setSplitText from "./utils/splitText";
 const TechStack = lazy(() => import("./TechStack"));
 
 const MainContainer = () => {
-  const [isDesktopView, setIsDesktopView] = useState<boolean>(
-    window.innerWidth > 1024
-  );
+  // Default to false (mobile) — safely set the real value inside useEffect
+  // to avoid Vercel/SSR crash from accessing window before hydration
+  const [isDesktopView, setIsDesktopView] = useState<boolean>(false);
 
   useEffect(() => {
     const resizeHandler = () => {
       setSplitText();
       setIsDesktopView(window.innerWidth > 1024);
     };
-    resizeHandler();
+    resizeHandler(); // sets correct value on first client-side render
     window.addEventListener("resize", resizeHandler);
     return () => {
       window.removeEventListener("resize", resizeHandler);
     };
-  }, [isDesktopView]);
+  }, []);
 
   return (
     <div className="container-main">

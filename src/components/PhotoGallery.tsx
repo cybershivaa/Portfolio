@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdArrowBack, MdArrowForward, MdClose } from "react-icons/md";
+import { FaAward, FaImages } from "react-icons/fa";
 import SafeImage from "./SafeImage";
 import "./styles/PhotoGallery.css";
+
+type Tab = "photos" | "certificate";
 
 interface Props {
   /** Any number of image paths */
@@ -11,6 +14,10 @@ interface Props {
   label: string;
   isOpen: boolean;
   startIndex?: number;
+  /** If provided, show a Certificate tab with this image */
+  certificate?: string;
+  /** Which tab to open first */
+  startTab?: Tab;
   onClose: () => void;
 }
 
@@ -20,15 +27,19 @@ const SWIPE_THRESHOLD = 45;
  * Reusable fullscreen photo gallery (lightbox).
  * Keyboard: ← / → to navigate, Esc to close, Tab stays inside the dialog.
  * Touch: horizontal swipe to navigate.
+ * Now supports an optional "Certificate" tab.
  */
 const PhotoGallery = ({
   images,
   label,
   isOpen,
   startIndex = 0,
+  certificate,
+  startTab = "photos",
   onClose,
 }: Props) => {
   const [index, setIndex] = useState(startIndex);
+  const [activeTab, setActiveTab] = useState<Tab>(startTab);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const thumbsRef = useRef<HTMLDivElement>(null);
@@ -48,8 +59,11 @@ const PhotoGallery = ({
 
   /* Reset to the requested slide each time the gallery opens */
   useEffect(() => {
-    if (isOpen) setIndex(Math.min(Math.max(startIndex, 0), Math.max(total - 1, 0)));
-  }, [isOpen, startIndex, total]);
+    if (isOpen) {
+      setIndex(Math.min(Math.max(startIndex, 0), Math.max(total - 1, 0)));
+      setActiveTab(startTab);
+    }
+  }, [isOpen, startIndex, total, startTab]);
 
   /* Lock page scroll while open, restore the previous value on close */
   useEffect(() => {
@@ -81,15 +95,17 @@ const PhotoGallery = ({
         onClose();
         return;
       }
-      if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        goPrev();
-        return;
-      }
-      if (event.key === "ArrowRight") {
-        event.preventDefault();
-        goNext();
-        return;
+      if (activeTab === "photos") {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          goPrev();
+          return;
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          goNext();
+          return;
+        }
       }
       if (event.key === "Tab") {
         const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
@@ -110,7 +126,7 @@ const PhotoGallery = ({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [isOpen, onClose, goPrev, goNext]);
+  }, [isOpen, onClose, goPrev, goNext, activeTab]);
 
   /* Keep the active thumbnail in view without scrolling the page */
   useEffect(() => {
@@ -148,6 +164,9 @@ const PhotoGallery = ({
 
   if (!isOpen || total === 0) return null;
 
+  const hasCertificate = Boolean(certificate);
+  const showTabs = hasCertificate;
+
   return createPortal(
     <div
       ref={dialogRef}
@@ -163,12 +182,19 @@ const PhotoGallery = ({
           <p className="truncate text-sm font-bold text-white sm:text-base">
             {label}
           </p>
-          <p
-            className="mt-0.5 text-xs font-semibold text-cyan-400"
-            aria-live="polite"
-          >
-            {index + 1} / {total}
-          </p>
+          {activeTab === "photos" && (
+            <p
+              className="mt-0.5 text-xs font-semibold text-cyan-400"
+              aria-live="polite"
+            >
+              {index + 1} / {total}
+            </p>
+          )}
+          {activeTab === "certificate" && (
+            <p className="mt-0.5 text-xs font-semibold text-yellow-400">
+              Certificate of Achievement
+            </p>
+          )}
         </div>
 
         <button
@@ -183,80 +209,155 @@ const PhotoGallery = ({
         </button>
       </div>
 
-      {/* Stage */}
-      <div
-        onClick={handleSurfaceClick}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        className="relative flex min-h-0 flex-1 items-center justify-center py-3 sm:py-4"
-      >
-        {total > 1 && (
+      {/* Tabs — only shown when certificate exists */}
+      {showTabs && (
+        <div className="mt-3 flex flex-none gap-2 border-b border-slate-700/60 pb-0">
           <button
             type="button"
-            onClick={goPrev}
-            aria-label="Previous photo"
             data-cursor="disable"
-            className="absolute left-0 z-10 rounded-lg border border-cyan-400/30 bg-slate-950/70 p-2 text-cyan-400 transition-all duration-300 hover:scale-110 hover:border-cyan-400/50 hover:bg-cyan-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 sm:p-3"
+            onClick={() => setActiveTab("photos")}
+            className={`flex items-center gap-1.5 rounded-t-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 ${
+              activeTab === "photos"
+                ? "border-b-2 border-cyan-400 bg-cyan-400/10 text-cyan-400"
+                : "border-b-2 border-transparent text-gray-400 hover:text-cyan-300"
+            }`}
           >
-            <MdArrowBack className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+            <FaImages className="h-3.5 w-3.5" aria-hidden="true" />
+            Photos
           </button>
-        )}
-
-        <div
-          key={index}
-          className="pg-slide flex h-full w-full items-center justify-center px-12 sm:px-16"
-        >
-          <SafeImage
-            src={images[index]}
-            alt={`${label} — photo ${index + 1} of ${total}`}
-            loading="eager"
-            className="max-h-full max-w-full rounded-lg border border-cyan-400/20 object-contain shadow-2xl shadow-cyan-500/10"
-          />
+          <button
+            type="button"
+            data-cursor="disable"
+            onClick={() => setActiveTab("certificate")}
+            className={`flex items-center gap-1.5 rounded-t-lg px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 ${
+              activeTab === "certificate"
+                ? "border-b-2 border-yellow-400 bg-yellow-400/10 text-yellow-400"
+                : "border-b-2 border-transparent text-gray-400 hover:text-yellow-300"
+            }`}
+          >
+            <FaAward className="h-3.5 w-3.5" aria-hidden="true" />
+            Certificate
+          </button>
         </div>
+      )}
 
-        {total > 1 && (
-          <button
-            type="button"
-            onClick={goNext}
-            aria-label="Next photo"
-            data-cursor="disable"
-            className="absolute right-0 z-10 rounded-lg border border-cyan-400/30 bg-slate-950/70 p-2 text-cyan-400 transition-all duration-300 hover:scale-110 hover:border-cyan-400/50 hover:bg-cyan-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 sm:p-3"
+      {/* ── PHOTOS TAB ── */}
+      {activeTab === "photos" && (
+        <>
+          {/* Stage */}
+          <div
+            onClick={handleSurfaceClick}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            className="relative flex min-h-0 flex-1 items-center justify-center py-3 sm:py-4"
           >
-            <MdArrowForward
-              className="h-5 w-5 sm:h-6 sm:w-6"
-              aria-hidden="true"
-            />
-          </button>
-        )}
-      </div>
+            {total > 1 && (
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label="Previous photo"
+                data-cursor="disable"
+                className="absolute left-0 z-10 rounded-lg border border-cyan-400/30 bg-slate-950/70 p-2 text-cyan-400 transition-all duration-300 hover:scale-110 hover:border-cyan-400/50 hover:bg-cyan-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 sm:p-3"
+              >
+                <MdArrowBack className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
+              </button>
+            )}
 
-      {/* Thumbnails */}
-      {total > 1 && (
-        <div
-          ref={thumbsRef}
-          className="pg-thumbs flex flex-none gap-2 overflow-x-auto pb-1 sm:gap-3 sm:justify-center"
-        >
-          {images.map((image, thumbIndex) => (
-            <button
-              key={image + thumbIndex}
-              type="button"
-              onClick={() => goTo(thumbIndex)}
-              aria-label={`View photo ${thumbIndex + 1}`}
-              aria-current={thumbIndex === index}
-              data-cursor="disable"
-              className={`h-14 w-20 flex-none overflow-hidden rounded-md border transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 sm:h-16 sm:w-24 ${
-                thumbIndex === index
-                  ? "border-cyan-400/70 opacity-100 shadow-lg shadow-cyan-500/20"
-                  : "border-gray-700/50 opacity-50 hover:border-cyan-400/40 hover:opacity-90"
-              }`}
+            <div
+              key={index}
+              className="pg-slide flex h-full w-full items-center justify-center px-12 sm:px-16"
             >
               <SafeImage
-                src={image}
-                alt=""
-                className="h-full w-full object-cover"
+                src={images[index]}
+                alt={`${label} — photo ${index + 1} of ${total}`}
+                loading="eager"
+                className="max-h-full max-w-full rounded-lg border border-cyan-400/20 object-contain shadow-2xl shadow-cyan-500/10"
               />
-            </button>
-          ))}
+            </div>
+
+            {total > 1 && (
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label="Next photo"
+                data-cursor="disable"
+                className="absolute right-0 z-10 rounded-lg border border-cyan-400/30 bg-slate-950/70 p-2 text-cyan-400 transition-all duration-300 hover:scale-110 hover:border-cyan-400/50 hover:bg-cyan-400/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 sm:p-3"
+              >
+                <MdArrowForward
+                  className="h-5 w-5 sm:h-6 sm:w-6"
+                  aria-hidden="true"
+                />
+              </button>
+            )}
+          </div>
+
+          {/* Thumbnails */}
+          {total > 1 && (
+            <div
+              ref={thumbsRef}
+              className="pg-thumbs flex flex-none gap-2 overflow-x-auto pb-1 sm:gap-3 sm:justify-center"
+            >
+              {images.map((image, thumbIndex) => (
+                <button
+                  key={image + thumbIndex}
+                  type="button"
+                  onClick={() => goTo(thumbIndex)}
+                  aria-label={`View photo ${thumbIndex + 1}`}
+                  aria-current={thumbIndex === index}
+                  data-cursor="disable"
+                  className={`h-14 w-20 flex-none overflow-hidden rounded-md border transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 sm:h-16 sm:w-24 ${
+                    thumbIndex === index
+                      ? "border-cyan-400/70 opacity-100 shadow-lg shadow-cyan-500/20"
+                      : "border-gray-700/50 opacity-50 hover:border-cyan-400/40 hover:opacity-90"
+                  }`}
+                >
+                  <SafeImage
+                    src={image}
+                    alt=""
+                    className="h-full w-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ── CERTIFICATE TAB ── */}
+      {activeTab === "certificate" && certificate && (
+        <div className="flex flex-1 min-h-0 items-center justify-center py-4">
+          <div className="relative flex flex-col items-center gap-4 max-h-full">
+            {/* Glow ring around certificate */}
+            <div
+              className="relative"
+              style={{ filter: "drop-shadow(0 0 32px rgba(251,191,36,0.35))" }}
+            >
+              <div
+                className="absolute -inset-1 rounded-xl opacity-50 blur-lg"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #fbbf24, #34d399, #fbbf24)",
+                }}
+                aria-hidden="true"
+              />
+              <SafeImage
+                src={certificate}
+                alt={`${label} — Certificate of Achievement`}
+                loading="eager"
+                className="relative max-h-[65vh] max-w-full rounded-xl border border-yellow-400/40 object-contain shadow-2xl"
+              />
+            </div>
+            {/* Download hint */}
+            <a
+              href={certificate}
+              download
+              data-cursor="disable"
+              className="inline-flex items-center gap-2 rounded-lg border border-yellow-400/40 bg-yellow-400/10 px-5 py-2 text-xs font-bold uppercase tracking-widest text-yellow-400 transition-all duration-300 hover:bg-yellow-400/20 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400/70"
+            >
+              <FaAward className="h-4 w-4" aria-hidden="true" />
+              Download Certificate
+            </a>
+          </div>
         </div>
       )}
     </div>,

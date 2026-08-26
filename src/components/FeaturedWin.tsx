@@ -1,10 +1,20 @@
-import { useEffect, useRef } from "react";
-import { FaTrophy } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { FaTrophy, FaAward } from "react-icons/fa";
 import { MdOutlineCelebration, MdPhotoLibrary } from "react-icons/md";
 import SafeImage from "./SafeImage";
+import PhotoGallery from "./PhotoGallery";
+import { achievements } from "../data/achievements";
 
 const FeaturedWin = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [galleryStartTab, setGalleryStartTab] = useState<"photos" | "certificate">("photos");
+
+  const openPhotos = () => { setGalleryStartTab("photos"); setGalleryOpen(true); };
+  const openCertificate = () => { setGalleryStartTab("certificate"); setGalleryOpen(true); };
+
+  // Get PSB hackathon data from achievements array
+  const psbData = achievements.find((a) => a.id === "psb-hackathon-2026");
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -207,19 +217,39 @@ const FeaturedWin = () => {
                 Team SCOR7
               </span>
 
-              <a
-                href="#achievements"
+              <button
+                type="button"
+                onClick={openPhotos}
+                aria-label="Open PSB Hackathon photo gallery"
                 data-cursor="disable"
                 className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-widest text-slate-900 transition-all duration-300 hover:scale-105 hover:brightness-110"
                 style={{
-                  background:
-                    "linear-gradient(90deg, #fbbf24, #f59e0b)",
+                  background: "linear-gradient(90deg, #fbbf24, #f59e0b)",
                   boxShadow: "0 0 20px rgba(251,191,36,0.4)",
                 }}
               >
                 <MdPhotoLibrary className="h-4 w-4" />
                 View Photos
-              </a>
+              </button>
+
+              {psbData?.certificate && (
+                <button
+                  type="button"
+                  onClick={openCertificate}
+                  aria-label="View PSB Hackathon certificate"
+                  data-cursor="disable"
+                  className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: "rgba(251,191,36,0.12)",
+                    border: "1px solid rgba(251,191,36,0.5)",
+                    color: "#fbbf24",
+                    boxShadow: "0 0 16px rgba(251,191,36,0.2)",
+                  }}
+                >
+                  <FaAward className="h-4 w-4" />
+                  Certificate
+                </button>
+              )}
             </div>
           </div>
 
@@ -292,6 +322,18 @@ const FeaturedWin = () => {
           transform: none !important;
         }
       `}</style>
+
+      {/* Inline gallery — opens without navigating away */}
+      {psbData && (
+        <PhotoGallery
+          images={psbData.images}
+          label={`${psbData.title} - Team ${psbData.team}`}
+          isOpen={galleryOpen}
+          certificate={psbData.certificate}
+          startTab={galleryStartTab}
+          onClose={() => setGalleryOpen(false)}
+        />
+      )}
     </section>
   );
 };

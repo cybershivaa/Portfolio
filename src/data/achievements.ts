@@ -12,6 +12,12 @@ export interface Achievement {
    * Files live in: public/achievements/<folder>/
    */
   images: string[];
+  /**
+   * Optional certificate image path.
+   * Drop the file in public/achievements/<folder>/certificate.jpg (or .png)
+   * and set this field to show a "Certificate" tab in the gallery lightbox.
+   */
+  certificate?: string;
 }
 
 export const achievements: Achievement[] = [
@@ -28,6 +34,7 @@ export const achievements: Achievement[] = [
       "/achievements/psb-hackathon-2026/3.jpg",
       "/achievements/psb-hackathon-2026/4.jpg",
     ],
+    certificate: "/achievements/psb-hackathon-2026/certificate.jpg",
   },
   {
     id: "sih-2025",

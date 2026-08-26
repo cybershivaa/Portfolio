@@ -183,6 +183,7 @@ const Achievements = () => {
                   images={item.images}
                   label={photoLabel}
                   isOpen={openGalleryId === item.id}
+                  certificate={item.certificate}
                   onClose={() => setOpenGalleryId(null)}
                 />
               </article>
