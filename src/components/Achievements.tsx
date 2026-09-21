@@ -46,9 +46,17 @@ const accentStyles = [
   },
 ];
 
+type GalleryTab = "photos" | "certificate";
+
 const Achievements = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [openGalleryId, setOpenGalleryId] = useState<string | null>(null);
+  const [galleryStartTab, setGalleryStartTab] = useState<GalleryTab>("photos");
+
+  const openGallery = (id: string, tab: GalleryTab = "photos") => {
+    setGalleryStartTab(tab);
+    setOpenGalleryId(id);
+  };
 
   const stats = useMemo(
     () => [
@@ -204,7 +212,7 @@ const Achievements = () => {
                 <div className="grid min-h-full gap-0 md:grid-cols-[0.95fr_1.05fr]">
                   <button
                     type="button"
-                    onClick={() => hasPhotos && setOpenGalleryId(item.id)}
+                    onClick={() => hasPhotos && openGallery(item.id)}
                     aria-label={`Open photo gallery for ${photoLabel}`}
                     data-cursor="disable"
                     disabled={!hasPhotos}
@@ -319,7 +327,7 @@ const Achievements = () => {
                           <button
                             key={`${item.id}-${image}`}
                             type="button"
-                            onClick={() => setOpenGalleryId(item.id)}
+                            onClick={() => openGallery(item.id)}
                             aria-label={`Open ${photoLabel} photo ${imageIndex + 1}`}
                             data-cursor="disable"
                             className="h-12 w-16 overflow-hidden rounded-md border border-white/10 bg-slate-900 transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--achievement-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
@@ -334,7 +342,7 @@ const Achievements = () => {
                         {photoCount > previewImages.length && (
                           <button
                             type="button"
-                            onClick={() => setOpenGalleryId(item.id)}
+                            onClick={() => openGallery(item.id)}
                             aria-label={`Open all ${photoCount} photos for ${photoLabel}`}
                             data-cursor="disable"
                             className="flex h-12 w-16 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-xs font-black text-slate-300 transition-all duration-300 hover:border-[var(--achievement-border)] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
@@ -344,21 +352,42 @@ const Achievements = () => {
                         )}
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => hasPhotos && setOpenGalleryId(item.id)}
-                        aria-label={`View gallery for ${photoLabel}`}
-                        data-cursor="disable"
-                        disabled={!hasPhotos}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-black uppercase tracking-[0.14em] text-slate-950 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-default disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:brightness-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-                        style={{
-                          background: accent.gradient,
-                          boxShadow: `0 18px 42px ${accent.glow}`,
-                        }}
+                      <div
+                        className={
+                          item.certificate
+                            ? "grid gap-3 sm:grid-cols-2"
+                            : "grid gap-3"
+                        }
                       >
-                        <MdPhotoLibrary className="h-5 w-5" aria-hidden="true" />
-                        {hasPhotos ? "View Gallery" : "Photos Soon"}
-                      </button>
+                        <button
+                          type="button"
+                          onClick={() => hasPhotos && openGallery(item.id)}
+                          aria-label={`View gallery for ${photoLabel}`}
+                          data-cursor="disable"
+                          disabled={!hasPhotos}
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-black uppercase tracking-[0.14em] text-slate-950 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 disabled:cursor-default disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:brightness-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                          style={{
+                            background: accent.gradient,
+                            boxShadow: `0 18px 42px ${accent.glow}`,
+                          }}
+                        >
+                          <MdPhotoLibrary className="h-5 w-5" aria-hidden="true" />
+                          {hasPhotos ? "View Gallery" : "Photos Soon"}
+                        </button>
+
+                        {item.certificate && (
+                          <button
+                            type="button"
+                            onClick={() => openGallery(item.id, "certificate")}
+                            aria-label={`View certificate for ${photoLabel}`}
+                            data-cursor="disable"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-yellow-300/40 bg-yellow-300/10 px-5 py-3 text-sm font-black uppercase tracking-[0.14em] text-yellow-200 transition-all duration-300 hover:-translate-y-0.5 hover:bg-yellow-300/15 hover:text-yellow-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                          >
+                            <FaAward className="h-5 w-5" aria-hidden="true" />
+                            Certificate
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -368,6 +397,7 @@ const Achievements = () => {
                   label={photoLabel}
                   isOpen={openGalleryId === item.id}
                   certificate={item.certificate}
+                  startTab={galleryStartTab}
                   onClose={() => setOpenGalleryId(null)}
                 />
               </article>

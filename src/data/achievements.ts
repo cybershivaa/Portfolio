@@ -21,7 +21,7 @@ export interface Achievement {
   images: string[];
   /**
    * Optional certificate image path.
-   * Drop the file in public/achievements/<folder>/certificate.jpg (or .png)
+   * Drop the file in public/achievements/<folder>/certificate.jpg/.jpeg/.png
    * and set this field to show a "Certificate" tab in the gallery lightbox.
    */
   certificate?: string;
@@ -91,9 +91,9 @@ export const achievements: Achievement[] = [
       "/achievements/global-fintech-fest-2026/4.jpeg",
       "/achievements/global-fintech-fest-2026/5.jpeg",
       "/achievements/global-fintech-fest-2026/6.jpeg",
-      "/achievements/global-fintech-fest-2026/7.jpeg",
       "/achievements/global-fintech-fest-2026/8.jpeg",
     ],
+    certificate: "/achievements/global-fintech-fest-2026/certificate.jpeg",
   },
   {
     id: "media-features",

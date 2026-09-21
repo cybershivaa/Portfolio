@@ -8,3 +8,7 @@ To add, remove, or reorder photos, edit the `images` array of the
 
 Other formats (.png / .webp / .jpeg) work too - just use the matching
 file extension in the `images` array.
+
+Certificate:
+Add the certificate as certificate.jpeg in this same folder.
+Path used by the site: /achievements/global-fintech-fest-2026/certificate.jpeg
