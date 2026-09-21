@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { gsap } from "gsap";
 import HoverLinks from "./HoverLinks";
@@ -7,8 +7,6 @@ import { HiMenu, HiX } from "react-icons/hi";
 gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
-  const isNavScrollingRef = useRef(false);
-  const navScrollTimerRef = useRef<number | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -25,18 +23,6 @@ const Navbar = () => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-
-    const header = document.querySelector("nav") as HTMLElement | null;
-    header?.classList.remove("translate-y-full");
-
-    isNavScrollingRef.current = true;
-    if (navScrollTimerRef.current !== null) {
-      window.clearTimeout(navScrollTimerRef.current);
-    }
-
-    navScrollTimerRef.current = window.setTimeout(() => {
-      isNavScrollingRef.current = false;
-    }, 900);
 
     if (targetId === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -55,40 +41,8 @@ const Navbar = () => {
     const onResize = () => ScrollTrigger.refresh();
     window.addEventListener("resize", onResize);
 
-    let lastScrollY = 0;
-    const header = document.querySelector("nav") as HTMLElement;
-
-    const onScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (header) {
-        if (window.innerWidth <= 1024) {
-          header.classList.remove("translate-y-full");
-          return;
-        }
-
-        if (isNavScrollingRef.current) {
-          header.classList.remove("translate-y-full");
-          lastScrollY = currentScrollY;
-          return;
-        }
-
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          header.classList.add("translate-y-full");
-        } else {
-          header.classList.remove("translate-y-full");
-        }
-      }
-      lastScrollY = currentScrollY;
-    };
-
-    window.addEventListener("scroll", onScroll);
-
     return () => {
-      if (navScrollTimerRef.current !== null) {
-        window.clearTimeout(navScrollTimerRef.current);
-      }
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -175,4 +129,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
