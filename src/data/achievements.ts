@@ -65,6 +65,8 @@ export const achievements: Achievement[] = [
       "/achievements/psb-hackathon-2026/2.jpg",
       "/achievements/psb-hackathon-2026/3.jpg",
       "/achievements/psb-hackathon-2026/4.jpg",
+      "/achievements/psb-hackathon-2026/5.jpg",
+      "/achievements/psb-hackathon-2026/6.jpg",
     ],
     certificate: "/achievements/psb-hackathon-2026/certificate.jpg",
   },
