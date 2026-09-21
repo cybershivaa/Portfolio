@@ -4,7 +4,6 @@ import Achievements from "./Achievements";
 import AnnouncementBar from "./AnnouncementBar";
 import Career from "./Career";
 import Contact from "./Contact";
-import Cursor from "./Cursor";
 import FeaturedWin from "./FeaturedWin";
 import Landing from "./Landing";
 import Navbar from "./Navbar";
@@ -36,7 +35,6 @@ const MainContainer = () => {
   return (
     <div className="container-main">
       <AnnouncementBar />
-      <Cursor />
       <Navbar />
       <SocialIcons />
       <div id="smooth-wrapper">
