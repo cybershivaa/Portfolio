@@ -4,6 +4,14 @@ import { MdArrowBack, MdArrowForward, MdArrowOutward } from "react-icons/md";
 
 const projects = [
   {
+    title: "SecureWealth Twin | DeltaLock",
+    category: "AI-Powered Wealth & Fraud Protection Platform",
+    tools:
+      "React.js, Node.js, Express.js, GenAI, ESP32, BLE, Hardware Cryptography, AI fraud detection, spending analytics, secure banking workflows",
+    image: "/images/deltalock-project.png",
+    status: "Prototype Build",
+  },
+  {
     title: "InspectX",
     category: "Inspection Platform",
     tools: "React.js, Node.js, MongoDB, Cloud Storage",
@@ -138,15 +146,21 @@ const Work = () => {
                   <p className="text-xs font-semibold text-gray-400 mb-2">Tools &amp; Features</p>
                   <p className="text-sm text-gray-300">{project.tools}</p>
                 </div>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500 text-white rounded text-sm font-semibold hover:bg-cyan-400 transition-colors"
-                >
-                  Visit Project
-                  <MdArrowOutward className="w-4 h-4" />
-                </a>
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500 text-white rounded text-sm font-semibold hover:bg-cyan-400 transition-colors"
+                  >
+                    Visit Project
+                    <MdArrowOutward className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded text-sm font-semibold border border-cyan-400/30 bg-cyan-400/10 text-cyan-300">
+                    {project.status ?? "Coming Soon"}
+                  </span>
+                )}
               </div>
             ))}
           </div>
@@ -184,15 +198,21 @@ const Work = () => {
                 </div>
 
                 {/* CTA Button */}
-                <a
-                  href={currentProject.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"
-                >
-                  <span>View Project</span>
-                  <MdArrowOutward className="w-5 h-5" />
-                </a>
+                {currentProject.link ? (
+                  <a
+                    href={currentProject.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-semibold rounded-lg hover:from-cyan-400 hover:to-cyan-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50"
+                  >
+                    <span>View Project</span>
+                    <MdArrowOutward className="w-5 h-5" />
+                  </a>
+                ) : (
+                  <span className="inline-flex w-fit items-center gap-2 rounded-lg border border-cyan-400/30 bg-cyan-400/10 px-6 py-3 font-semibold text-cyan-300 shadow-lg shadow-cyan-500/10">
+                    {currentProject.status ?? "Coming Soon"}
+                  </span>
+                )}
               </div>
 
               {/* Project Image */}
